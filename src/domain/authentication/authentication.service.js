@@ -39,7 +39,15 @@ export function login(data) {
 }
 
 export function logout() {
-    // TODO   
+  return fetch(`/api/me`)
+    .then(async res => {
+      if (res.status !== 200 && res.status !== 201) {
+        const { message } = await res.json()
+        throw new Error(message)
+      }
+      return res
+    })
+    .then(res => res.json());
 }
 
 export function getMe() {
