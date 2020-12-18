@@ -15,12 +15,23 @@ export default function reducer(state, action) {
             }
         case types.PICTURE_LIKED:
             const { pictures } = state;
-            const idx = pictures.findIndex(picture => picture.id === action.payload.id);
-            pictures[idx] = action.payload;
+            const idx = pictures.findIndex(picture => picture.picsum_id === action.payload.picsum_id);
+            pictures[idx] = { ...pictures[idx], ...action.payload };
             return {
                 ...state,
                 pending: false,
                 pictures: [...pictures]
+            };
+        case types.PICTURE_DISLIKED:
+            const  picturesliked  = state.pictures;
+            const  userdisliking  = state.user._id;
+            const idxtormove = picturesliked.findIndex(picture => picture.picsum_id === action.payload.picsum_id);
+            const useridxtormove = picturesliked[idxtormove]['likedBy'].indexOf(userdisliking);
+            picturesliked[idxtormove]['likedBy'].splice(useridxtormove,1) ;
+            return {
+                ...state,
+                pending: false,
+                pictures: [...picturesliked]
             }
         case types.PICTURE_FAILED:
             return {
