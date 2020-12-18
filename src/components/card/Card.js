@@ -21,7 +21,7 @@ export function Card({ picture }) {
         <div className="card">
             <div className="card-img">
                 <img src={picture.download_url} />
-                <LikeButton onClick={() => { (picture.likedBy && picture.likedBy.find(like => like === state.user._id) )? onDislike(picture.id) : onLike(picture.id) }} isLiked={picture.likedBy && picture.likedBy.find(like => like === state.user._id)} />
+                <LikeButton onClick={() => { (picture.likedBy && picture.likedBy.find(like => like === state.user._id) )? onDislike(picture.picsum_id) : onLike(picture.picsum_id) }} isLiked={picture.likedBy && picture.likedBy.find(like => like._id  === state.user._id)} />
                 <span className="likes">Likes : {picture.likedBy ? picture.likedBy.length : 0}</span>
                 <BookmarkButton onClick={() => { }} />
             </div>
